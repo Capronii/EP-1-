@@ -14,7 +14,6 @@ def aposta_valida(din,aposta):
         return False
 
 
-huuhhimnu
      
 
 
@@ -32,5 +31,8 @@ def jogo():
         dado=int(dado1)+int(dado2)
         print('Soma dos dados:',dado)
 
-        d
-
+        if dado=7 or dado=11:
+            print('Vitória!')
+            din=din+aposta
+        if dado=2 or dado=3 or dado=12:
+            print('CRAPS,você perdeu')    
