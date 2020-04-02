@@ -42,13 +42,36 @@ def Twelve(soma_dos_dados):
         return 'twelve2'
 
 
+
+
 #Início do jogo
 
 din = 100
 print('\n\033[1;34m''Bem Vindo ao Craps''\033[0;0m')
 print('Você tem {} fichas para apostar'.format(din))
+regra=input('\033[1;90mVocê deseja saber as regras?(sim/nao)   \033[1;90m')
+if regra=='sim':
+    print('''\033[1;90m
+      Pode-se escolher entre 4 tipos de aposta:
+      1-Pass line bet:
+      A primeira fase dessa opção de aposta consiste em 
+      se a soma dos dados for igual a 7 ou 11 o jogador ganha o que apostou.
+      se for 2, 3 ou 12 o jogador perde o que apostou.
+      Caso a soma dos dados der 4, 5, 6, 8, 9 ou 10 o jogador muda para a fase Point,
+      o dado é jogado novamente e sua soma tem que ser igual a soma inicial ou 7 caso contrario o dado é jogado novamente
+      caso seja 7 você perde o que apostou e se for igual a primeira soma de dados você vence
+      Durante essa fase do jogo enquando os dado são jogados novamente você pode apostas nos outros tipos de aposta.
+      2-Field: 
+      Esse tipo de aposta consiste em se o dado cair no 5, 6, 7 ou 8 o jogador perde a aposta.
+      se cair no 3, 4, 9, 10 ou 11 o jogador vence 
+      caso a soma seja 2 o jogador vence dobrando a aposta inicial e caso seja 12 o jogador vence triplicando a aposta inicial
+      3-Any Craps:
+      nesse tipo de aposta apenas as somas iguais a 2, 3 ou 12 te fazem vencer multiplicando a aposta 7 vezez!!
+      caso contrário a aposta é perdida
+      4-Twelve:
+      Nesta opção a unica soma que te leva a vencer é 12 e multiplica a aposta inicial em 30 vezes.\033[1;90m''')
 
-'''Criar print com as regras depois'''
+
 
 while din > 0:
     fase = 'Come out'
@@ -56,6 +79,7 @@ while din > 0:
 
     sair = input('\n\033[34m''Você quer sair do jogo?(sim/nao): ''\033[0;0m')
     if sair == 'sim':
+        print('Obrigado por jogar você terminou com {0}'.format(din))
         break
 
     
@@ -165,7 +189,3 @@ while din > 0:
         
         if fase == 'Come out':
             break
-
-    print('\n\033[34m''Após a rodada você ainda tem {} fichas''\033[0;0m'.format(din))
-
-print ('\nO jogo acabou o jogo com {} ficha(s)'.format(din))
