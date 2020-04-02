@@ -1,158 +1,171 @@
 import random 
 
-def Pass_line(aposta1,dado):
-    if dado ==7 or dado==11:
-        return 'a'
-    if dado==2 or dado==3 or dado==12:
-        return 'b'
+def Pass_line_Come_out (soma_dos_dados):
+    if soma_dos_dados == 7 or soma_dos_dados == 11:
+        return 'Vitória direta'
+    if soma_dos_dados == 2 or soma_dos_dados == 3 or soma_dos_dados == 12:
+        return 'Perda direta'
+    if soma_dos_dados == 4 or soma_dos_dados == 5 or soma_dos_dados == 6 or soma_dos_dados == 8 or soma_dos_dados == 9 or soma_dos_dados == 10:
+        return 'Mudou de fase'
 
-    if dado==4 or dado==5 or dado==6 or dado==8 or dado==9 or dado==10:
-        dado3=random.randint(1,6)
-        dado4=random.randint(1,6)
-        dado2=dado3+dado4
-        print('Você mudou de fase')
-        while dado2!=7 or dado2!=dado:
-            dado3=random.randint(1,6)
-            print('Dado1:',dado3)
-            dado4=random.randint(1,6)
-            print('Dado2:',dado4)
-            dado2=dado3+dado4
-            print('Soma:',dado2)
-            if dado2==7:
-                return 'c'
-                break
-            if dado2==dado:
-                return 'd'
-                break
 
-def Field(aposta2,dado):
-    if dado==5 or dado==6 or dado==7 or dado==8:
+def Pass_line_Point (soma_dos_dados, point):
+    if soma_dos_dados == point:
+        return 'Ganhou point'
+    elif soma_dos_dados == 7:
+        return 'Perdeu point'
+    else:
+        return 'Volta'
+
+
+def Field (soma_dos_dados):
+    if soma_dos_dados==5 or soma_dos_dados==6 or soma_dos_dados==7 or soma_dos_dados==8:
         return 'perde'
-    if dado==3 or dado==4 or dado==9 or dado==10 or dado==12:
+    if soma_dos_dados==3 or soma_dos_dados==4 or soma_dos_dados==9 or soma_dos_dados==10 or soma_dos_dados==11:
         return 'Vito'
-    if dado==2:
+    if soma_dos_dados==2:
         return 'dois'
-    if dado==12:
+    if soma_dos_dados==12:
         return 'doze'
+    
 
-def Anycraps(aposta3,dado):
-    if dado==2 or dado==3 or dado==12:
+def Anycraps (soma_dos_dados):
+    if soma_dos_dados==2 or soma_dos_dados==3 or soma_dos_dados==12:
         return 'craps1'
     else:
         return 'craps2'
 
-def Twelve(aposta4,dado):
-    if dado==12:
+def Twelve(soma_dos_dados):
+    if soma_dos_dados==12:
         return 'twelve1'
     else:
         return 'twelve2'
-    
-def aposta_valida1(aposta1,din,):
-    if aposta1>=din and aposta1==0:
-        return False
-    else:
-        return True
-        
-def aposta_valida2(aposta2,din):
-    if aposta2>=din and aposta2==0:
-        return False
-    else:
-        return True
-
-def aposta_valida3(aposta3,din):
-    if aposta3>=din and aposta3==0:
-        return False
-    else:
-        return True 
-
-def aposta_valida4(aposta4,din):
-    if aposta4>=din and aposta4==0:
-        return False
-    else:
-        return True
 
 
+#Início do jogo
 
-#inicio
-din=100
-print('bem vindo ao Craps')
+din = 100
+print('\n\033[1;34m''Bem Vindo ao Craps''\033[0;0m')
+print('Você tem {} fichas para apostar'.format(din))
+
 '''Criar print com as regras depois'''
-while din>0:
 
-    '''continuar=input('Você que continuar a jogar?')'''
+while din > 0:
+    fase = 'Come out'
+    print('\033[1;34m''Você está na fase {}''\033[0;0m'.format(fase))
 
-    
-    aposta1=int(input("Quanto quer apostar no Pass Line Bet?  "))
-    aposta2=int(input('Quanto quer apostar no Field?  '))
-    aposta3=int(input('Quanto quer apostar no Anycraps?  '))
-    aposta4=int(input('Quanto quer apostar no Twelve?  '))
-
-
-    
-
-    if aposta_valida1(aposta1,din)==False or aposta_valida2(aposta2,din)==False or aposta_valida3(aposta3,din)==False or aposta_valida4(aposta4,din)==False:
-        print('erro aposta maior que saldo')
+    sair = input('\n\033[34m''Você quer sair do jogo?(sim/nao): ''\033[0;0m')
+    if sair == 'sim':
         break
-        
-    else:
-        dado1=random.randint(1,6)
-        dado2=random.randint(1,6)
-        print('Dado 1:',dado1)
-        print('Dado 2:',dado2)
-        dado=int(dado1)+int(dado2)
-        print('Soma dos dados:',dado)
-        resultado=Pass_line(aposta1,dado)
-        result_Field=Field(aposta2,dado)
-        result_Any=Anycraps(aposta3,dado)
-        result_Twelve=Twelve(aposta4,dado)
 
-        if resultado=='a':
-            print('Vitória Direta!')
-            din=din+2*aposta1
-            
-        if resultado=='b':
-            print('CRAPS,Perdeu')
-            din=din-aposta1
-            
-        if resultado=='c':
-            print('Perdeu no Point')
-            din=din-aposta1
-            
-        if resultado=='d':
-            print('Vitória no Point')
-            din=din+2*aposta1
-            
-        if result_Field=='perde':
-            print('Perdeu no Field')
-            din=din-aposta2
+    
+
+    while True:
+        aposta1 = int(input('\n\033[34m'"Quanto você quer apostar no Pass Line Bet? "'\033[0;0m'))
+        if (aposta1 <= din):
+            din -= aposta1
+            break
+        else:
+            print('\033[31m''Erro: o valor da aposta no Pass Line Bet é maior do que a quantidade das suas fichas. Aposte outro valor.''\033[0;0m')
+
+    while True:
+        while True:
+            print('Você ainda tem {} ficha(s) para apostar'.format(din))
+            aposta2 = int(input('\n\033[34m'"Quanto você quer apostar no Field? "'\033[0;0m'))
+            if (aposta2 <= din):
+                din -= aposta2
+                break
+            else:
+                print('\033[31m''Erro: o valor da aposta no Field é maior do que a quantidade das suas fichas. Aposte outro valor.''\033[0;0m')
+
+        while True:
+            print('Você ainda tem {} ficha(s) para apostar'.format(din))
+            aposta3 = int(input('\n\033[34m'"Quanto você quer apostar no Any Craps? "'\033[0;0m'))
+            if (aposta3 <= din):
+                din -= aposta3
+                break
+            else:
+                print('\n\033[31m''Erro: o valor da aposta no Any Craps é maior do que a quantidade das suas fichas. Aposte outro valor.''\033[0;0m')
+
+        while True:
+            print('Você ainda tem {} ficha(s) para apostar'.format(din))
+            aposta4 = int(input('\n\033[34m'"Quanto você quer apostar no Twelve? "'\033[0;0m'))
+            if (aposta4 <= din):
+                din -= aposta4
+                break
+            else:
+                print('\n\033[31m''Erro: o valor da aposta no Twelve é maior do que a quantidade das suas fichas. Aposte outro valor.''\033[0;0m')
         
-        if result_Field=='Vito':
-            print('Ganhou no Field')
-            din=din+aposta2
+        dado1 = random.randint(1,6)
+        dado2 = random.randint(1,6)
+
+        print('\nDado 1:',dado1)
+        print('Dado 2:',dado2)
+
+        soma_dos_dados = dado1 + dado2
+        print('Soma dos dados:',soma_dos_dados)
+
+        if fase == 'Come out':
+            resultado_Pass = Pass_line_Come_out (soma_dos_dados)
+            point = soma_dos_dados
+            if resultado_Pass == 'Vitória direta' and aposta1>0:
+                print('\n\033[32m''Parabéns! Você ganhou no Pass Line Bet na fase Come Out''\033[0;0m')
+                din = din + 2*aposta1
+            elif resultado_Pass == 'Perda direta' and aposta1>0:
+                print('\n\033[31m''Você perdeu no Pass Line Bet na fase Come Out''\033[0;0m')
+            else:
+                if aposta1 > 0:
+                    fase = 'Point'
+                    print('\n\033[1;34m''Você mudou para a fase {}''\033[1;0m'.format(fase))
+                    print('\n\033[1;34m''Seu número point é {}''\033[1;0m'.format(point))
+        else:
+            resultado_Pass_line_Point = Pass_line_Point(soma_dos_dados, point)
+            if resultado_Pass_line_Point == 'Ganhou point' and aposta1>0:
+                print('\n\033[32m''Parabéns! Você ganhou no Pass Line Bet na fase Point''\033[0;0m')
+                din = din + 2*aposta1
+                fase = 'Come out'
+            elif resultado_Pass_line_Point == 'Perdeu point' and aposta1>0:
+                print('\n\033[31m''Você perdeu no Pass Line Bet na fase Point''\033[0;0m')
+                fase = 'Come out'
+
+        result_Field = Field (soma_dos_dados)
+        if result_Field == 'perde' and aposta2>0:
+            print('\n\033[31m''Você perdeu no Field''\033[0;0m')
             
-        if result_Field=='dois':
-            print('Ganhou em dobro no Field')
-            din=din+(aposta2*2)
+        elif result_Field == 'Vito' and aposta2>0:
+            print('\n\033[32m''Parabéns! Você ganhou no Field''\033[0;0m')
+            din = din + 2*aposta2
+                
+        elif result_Field == 'dois' and aposta2>0:
+            print('\n\033[32m''Você ganhou em dobro no Field''\033[0;0m')
+            din = din + (aposta2*3)
+                
+        else:
+            if aposta2>0:
+                print('\n\033[32m''Você ganhou o triplo no Field!!''\033[0;0m')
+                din = din + (aposta2*4)
+
+        result_Any = Anycraps (soma_dos_dados)     
+        if result_Any == 'craps1' and aposta3>0:
+            print('\n\033[32m''Você ganhou no Any Craps''\033[0;0m')
+            din = din + (aposta3*8)
             
-            
-        if result_Field=='doze':
-            print('Ganhou o triplo no Field!!')
-            din=din+(aposta2*3)
-            
-        if result_Any=='craps1':
-            print('Ganhou no any craps')
-            din=din+(aposta3*7)
+        else:
+            if aposta3>0:
+                print('\n\033[31m''Você perdeu no Any Craps''\033[0;0m')
+
+        result_Twelve = Twelve (soma_dos_dados)
+        if result_Twelve == 'twelve1' and aposta4>0:
+            print('\n\033[32m''Você ganhou no Twelve''\033[0;0m')
+            din = din + (aposta4*31)
+                
+        else:
+            if aposta4>0:
+                print('\n\033[31m''Você perdeu no Twelve''\033[0;0m\n')
         
-        if result_Any=='craps2':
-            print('Perdeu no any craps')
-            din=din-aposta3
-            
-        if result_Twelve=='twelve1':
-            print('Ganhou no Twelve')
-            din=din+(aposta4*30)
-            
-        if result_Twelve=='twelve2':
-            print('Perdeu no Twelve')
-            din=din-aposta4
-            
-    print('Apos a rodada você ainda tem {}'.format(din))
+        if fase == 'Come out':
+            break
+
+    print('\n\033[34m''Após a rodada você ainda tem {} fichas''\033[0;0m'.format(din))
+
+print ('\nO jogo acabou o jogo com {} ficha(s)'.format(din))
